@@ -1,0 +1,11 @@
+{% extends "core/base.html" %}
+
+{% block title %}Пользователь {{ user.username }}{% endblock %}
+
+{% block content %}
+    <header><h3>Пользователь {{ user.username }}</h3></header>
+    <h4>Блоги:</h4>
+        {% for b in user.blogs.all %}
+            <div><a href="{% url 'blogs:blog_detail' pk=b.id %}">{{ b.title }}</a></div>
+        {% endfor %}
+{% endblock %}

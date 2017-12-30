@@ -1,0 +1,53 @@
+{% extends "core/base.html" %}
+{% load widget_tweaks %}
+
+{% block js %}<script type="text/javascript" src="/static/posts.js"></script>{% endblock %}
+
+{% block title %}{{ post.title }}{% endblock %}
+
+{% block content %}
+    <header>
+    <h2>{{ post.title }}</h2>
+    <span class="text-muted">{{ post.created_at }} в блоге <a href="{% url 'blogs:blog_detail' pk=post.blog.id %}">{{ post.blog.title }}</a></span>
+    </header>
+    <br>
+    <article>{{ post.text }}</article>
+    <br>
+    {% if post.categories.all.count > 0 %}
+    <span>Категории:{% for categ in post.categories.all %}  {{ categ.title }}  {% endfor %}</span>
+    <br>
+    {% endif %}
+    <span id="likes">Количество лайков: {{ post.likes_count }}</span>
+    <button class="btn ajaxlike" data-url="{% url 'posts:post_ajax_like' pk=post.id %}" data-postid="{{ post.id }}">Лайкнуть</button>
+    {% if post.is_deleted %}
+    <h4>Пост скрыт</h4>
+    {% endif %}
+    {% if user.id == post.author_id %}
+    <div><a class = 'editLink' href="{% url 'posts:post_edit' pk=post.id %}">Редактировать пост</a></div>
+    {% endif %}
+    <div class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h4 class="modal-title">Редактирование поста</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body" id="body">
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+    <aside>
+    <h5>Комментарии:</h5>
+            {% include "posts/post_comments.html"%}
+    {% if user.is_authenticated %}
+        <form action="" method="post" class="col-sm-12 col-md-8 col-lg-6">
+            {% csrf_token %}
+            {% render_field form.text class="form-control" placeholder="Комментарий" rows="2"%}
+            <input type="submit" value="Отправить">
+        </form>
+    {% else %}
+        <span class="text-muted">Только авторизованные пользователи могут оставлять комментарии.</span>
+    {% endif %}
+    </aside>
+{% endblock %}

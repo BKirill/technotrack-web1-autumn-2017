@@ -1,0 +1,33 @@
+{% extends "core/base.html" %}
+
+
+{% block title %}{{ blog.title }}{% endblock %}
+
+{% block content %}
+    <header><h2>{{ blog.title }}</h2></header>
+    <h4>Автор: <a href="{% url 'core:user_profile' pk=blog.author.id %}">{{ blog.author.username }}</a></h4>
+    <article>Описание: {{ blog.description }}</a></article>
+    <br>
+    <h4>Посты:</h4>
+    {% for p in available_posts %}
+        <p>
+            <h4><a href="{% url 'posts:post_detail' pk=p.id %}">{{ p.title }}</a></h4>
+            <div>{{ p.text }}</div>
+        </p>
+    {% endfor %}
+<div class="modal fade" tabindex="-1" role="dialog">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+          <h4 class="modal-title">Создание нового поста</h4>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      </div>
+      <div class="modal-body" id="body">
+      </div>
+    </div><!-- /.modal-content -->
+  </div><!-- /.modal-dialog -->
+</div><!-- /.modal -->
+    {% if request.user.id == blog.author.id %}
+        <div><a class="createLink" href="{% url 'blogs:new_post' pk=blog.id %}">Добавить пост</a></div>
+    {% endif %}
+{% endblock %}

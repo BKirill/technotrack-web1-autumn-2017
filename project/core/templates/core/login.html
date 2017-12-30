@@ -1,0 +1,19 @@
+{% extends "core/base.html" %}
+{% load widget_tweaks %}
+{% block title %}Авторизация{% endblock %}
+
+{% block content %}
+    <div class="container col-xs-12 col-md-6 col-lg-4">
+        <form class="form-signin" action="" method="post">
+            {% csrf_token %}
+            <header><h2 class="form-signin-heading">Вход в систему</h2></header>
+            {% render_field form.username class="form-control" placeholder="Имя пользователя" id="id_username"%}
+            {% render_field form.password class="form-control" placeholder="Пароль" id="id_password" %}
+            {% for error in form.non_field_errors %}
+                    <span class="form-text">{{ error }}</span>
+            {% endfor %}
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+      </form>
+        <span><a href="{% url 'core:register'%}">Зарегистрироваться</a></span>
+    </div>
+{% endblock %}

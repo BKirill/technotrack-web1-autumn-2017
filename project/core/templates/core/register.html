@@ -1,0 +1,22 @@
+{% extends "core/base.html" %}
+{% load widget_tweaks %}
+
+{% block title %}Регистрация{% endblock %}
+
+{% block content %}
+    <div class="container col-xs-12 col-md-6 col-lg-4">
+        <form class="form-signin" action="" method="post">
+            {% csrf_token %}
+            <header><h2 class="form-signin-heading">Регистрация:</h2></header>
+            {% render_field form.username class="form-control" placeholder="Имя пользователя" id="id_username"%}
+            {% render_field form.password1 class="form-control" placeholder="Пароль" id="id_password1" %}
+            {% render_field form.password2 class="form-control" placeholder="Подтвердите пароль" id="id_password2" %}
+            {% for field in form.visible_fields %}
+                {% for error in field.errors %}
+                    <span class="form-text">{{ error }}</span>
+                {% endfor %}
+            {% endfor %}
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Зарегистрироваться</button>
+      </form>
+    </div>
+{% endblock %}

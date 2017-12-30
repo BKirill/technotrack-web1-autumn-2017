@@ -1,0 +1,12 @@
+{% extends "core/base.html" %}
+
+{% block title %}Главная страница{% endblock %}
+
+{% block content %}
+    <header><h2>Главная страница</h2></header>
+    <article>
+    <h5>Количество блогов: {{ blogs_num }}</h5>
+    <h5>Количество постов: {{ posts_num }}</h5>
+    <h5>Количество комментариев: {{ comments_num }}</h5>
+    </article>
+{% endblock %}

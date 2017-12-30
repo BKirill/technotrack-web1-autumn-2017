@@ -1,0 +1,16 @@
+{% load widget_tweaks %}
+    <form action={{ request.path }} method="post">
+        {% csrf_token %}
+        <div class="form-group">
+        <label for="Title">Заголовок поста:</label>
+            {% render_field form.title class="form-control" placeholder="Введите заголовок поста" id="Title"%}
+            <label for="Text">Текст поста:</label>
+            {% render_field form.text class="form-control" placeholder="Введите текст поста" id="Text"%}
+            <label for="Categories">Категории:</label>
+            {% render_field form.categories class="chosen-select col-12" placeholder="Выберите категории" id="Categories" tabindex="8"%}
+        </div>
+        <div>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+        <input type="submit" class="btn btn-primary" value="Создать">
+        </div>
+    </form>

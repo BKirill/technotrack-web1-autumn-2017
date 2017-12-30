@@ -1,0 +1,14 @@
+{% load widget_tweaks %}
+    <form action="{% url 'blogs:new_blog'%}" method="post">
+        {% csrf_token %}
+        <div class="form-group">
+        <label for="Title">Название:</label>
+            {% render_field form.title class="form-control" placeholder="Введите название блога" id="Title"%}
+            <label for="Description">Описание:</label>
+            {% render_field form.description class="form-control" placeholder="Введите описание блога" id="Description"%}
+        </div>
+        <div>
+        <button type="button" class="btn btn-default" data-dismiss="modal">Отмена</button>
+        <input type="submit" class="btn btn-primary" value="Создать">
+        </div>
+    </form>

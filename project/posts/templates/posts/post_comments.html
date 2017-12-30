@@ -1,0 +1,7 @@
+<div id="comments">
+{% for c in post.comments.all %}
+        <div>
+            {{ c.author }}: {{ c.text }}
+        </div>
+    {% endfor %}
+</div>
